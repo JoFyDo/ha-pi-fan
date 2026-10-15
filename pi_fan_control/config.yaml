@@ -1,0 +1,42 @@
+name: "Pi Fan Control"
+slug: pi_fan_control
+version: "0.1.0"
+description: "Temperature-controlled PWM fan driver for a Raspberry Pi 4 running Home Assistant OS"
+arch:
+  - aarch64
+startup: application
+boot: auto
+init: false
+
+# Needed to write to /sys/class/pwm. Once it works you can try removing
+# these two lines to see whether a narrower permission set is enough.
+full_access: true
+apparmor: false
+
+# NOTE: no "image:" key on purpose, so the Pi builds the add-on locally.
+
+options:
+  pwm_chip: 0
+  pwm_channel: 0
+  pwm_frequency_hz: 25000
+  power_switch_channel: -1
+  min_temp: 45
+  max_temp: 70
+  min_duty: 20
+  max_duty: 100
+  off_below_temp: 40
+  poll_interval: 5
+  log_level: "info"
+
+schema:
+  pwm_chip: "int(0,9)"
+  pwm_channel: "int(0,3)"
+  pwm_frequency_hz: "int(1000,100000)"
+  power_switch_channel: "int(-1,3)"
+  min_temp: "int(20,90)"
+  max_temp: "int(30,95)"
+  min_duty: "int(0,100)"
+  max_duty: "int(1,100)"
+  off_below_temp: "int(10,89)"
+  poll_interval: "int(1,60)"
+  log_level: "list(debug|info|warning|error)"
