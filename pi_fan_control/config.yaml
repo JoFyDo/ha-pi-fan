@@ -12,6 +12,8 @@ init: false
 # these two lines to see whether a narrower permission set is enough.
 full_access: true
 apparmor: false
+privileged:
+  - SYS_ADMIN
 
 # NOTE: no "image:" key on purpose, so the Pi builds the add-on locally.
 
